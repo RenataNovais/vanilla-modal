@@ -59,6 +59,11 @@ class CustomModal extends HTMLElement {
         this._render();
     }
 
+    disconnectedCallback() {
+        this.leftButton.removeEventListener('click', this._onClickHandleLeft);
+        this.rightButton.removeEventListener('click', this._onClickHandleRight);
+    }
+
     _showModal() {
         this._modalVisible =true;
         this._modal.style.display = 'block';
@@ -67,6 +72,14 @@ class CustomModal extends HTMLElement {
     _hideModal() {
         this._modalVisible = false;
         this._modal.style.display = 'none';
+    }
+
+    _onClickHandleLeft() {
+        this._hideModal();
+    }
+
+    _onClickHandleRight() {
+        this._hideModal();
     }
 
     _render() {
@@ -79,15 +92,22 @@ class CustomModal extends HTMLElement {
 
         const actions = this.shadowRoot.querySelector('.modal-actions');
 
-        this.leftButton = document.createElement('button');
-        this.leftButton.textContent = this.leftText;
-        
-        actions.appendChild(this.leftButton);
 
-        this.rightButton = document.createElement('button');
-        this.rightButton.textContent = this.rightText;
-        
-        actions.appendChild(this.rightButton);
+        if (this.leftText) {
+            this.leftButton = document.createElement('button');
+            this.leftButton.textContent = this.leftText;
+            this.leftButton.addEventListener('click', this._onClickHandleLeft.bind(this));
+            
+            actions.appendChild(this.leftButton);
+        }
+
+        if (this.rightText) {
+            this.rightButton = document.createElement('button');
+            this.rightButton.textContent = this.rightText;
+            this.rightButton.addEventListener('click', this._onClickHandleRight.bind(this));
+            
+            actions.appendChild(this.rightButton);
+        }
     }
 }
 
