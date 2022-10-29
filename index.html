@@ -18,11 +18,32 @@
     </body>
 
     <script>
+        const handleConfirmationClick = () => {
+            const message = document.querySelector('.message');
+
+            message.textContent = 'You just clicked "Yes"';
+        }
+
+        const handleCancelConfirmationDialogClick = () => {
+            const message = document.querySelector('.message');
+
+            message.textContent = 'You just clicked "Cancel"';
+        }
+
+        const cleanUpMessage = () => {
+            const message = document.querySelector('.message');
+
+            message.textContent = '';
+        }
+
         async function openModal() {
+            cleanUpMessage();
             const modal = document.createElement('custom-modal');
             modal.content = 'Are you sure you want to continue';
             modal.leftText = 'Yes';
             modal.rightText = 'Cancel';
+            modal.handleLeftClick = () => handleConfirmationClick();
+            modal.handleRightClick = () => handleCancelConfirmationDialogClick();
 
             document.body.appendChild(modal);
         }

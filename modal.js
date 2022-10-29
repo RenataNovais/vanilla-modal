@@ -62,10 +62,11 @@ class CustomModal extends HTMLElement {
     disconnectedCallback() {
         this.leftButton.removeEventListener('click', this._onClickHandleLeft);
         this.rightButton.removeEventListener('click', this._onClickHandleRight);
+        this._hideModal();
     }
 
     _showModal() {
-        this._modalVisible =true;
+        this._modalVisible = true;
         this._modal.style.display = 'block';
     }
 
@@ -75,10 +76,18 @@ class CustomModal extends HTMLElement {
     }
 
     _onClickHandleLeft() {
+        if (this.handleLeftClick) {
+            this.handleLeftClick();
+        }
+
         this._hideModal();
     }
 
     _onClickHandleRight() {
+        if (this.handleRightClick) {
+            this.handleRightClick();
+        }
+
         this._hideModal();
     }
 
