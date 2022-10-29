@@ -9,13 +9,22 @@
 
     <body>
         <div>
-            <button>Click me</button>
+            <button onclick=openModal()>Click me</button>
 
             <div>
                 <p class="message"></p>
             </div>
         </div>
-
-        <custom-modal content="Are you sure you want to continue" leftButton="Yes" rightButton="Cancel"></custom-modal>
     </body>
+
+    <script>
+        async function openModal() {
+            const modal = document.createElement('custom-modal');
+            modal.content = 'Are you sure you want to continue';
+            modal.leftText = 'Yes';
+            modal.rightText = 'Cancel';
+
+            document.body.appendChild(modal);
+        }
+    </script>
 </html>
